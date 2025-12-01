@@ -17,12 +17,13 @@ jobs:
         python-version: '3.9'
         
     - name: Download Poppler
+      shell: powershell
       run: |
-        # 使用 PowerShell 下载并解压 Poppler
-        Invoke-WebRequest -Uri https://github.com/oschwartz10612/poppler-windows/releases/tag/v25.11.0-0 -OutFile poppler.zip
+        # 使用 curl 下载 Poppler ZIP
+        curl -L -o poppler.zip https://github.com/oschwartz10612/poppler-windows/releases/download/v25.11.0-0/poppler-25.11.0-0.zip
         Expand-Archive poppler.zip -DestinationPath .
         # 重命名解压后的文件夹为 poppler
-        Move-Item poppler-24.02.0-0/Library poppler -Force
+        Move-Item poppler-25.11.0-0/Library poppler -Force
       
     - name: Install Dependencies
       run: |
