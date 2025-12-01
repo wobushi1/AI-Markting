@@ -20,8 +20,7 @@ jobs:
       shell: powershell
       run: |
         Invoke-WebRequest -Uri https://github.com/oschwartz10612/poppler-windows/releases/download/v25.11.0-0/Release-25.11.0-0.zip -OutFile poppler.zip
-        Expand-Archive poppler.zip -DestinationPath .
-        Move-Item Release-25.11.0-0/Library poppler -Force
+        Expand-Archive -Path poppler.zip -DestinationPath poppler
       
     - name: Install Dependencies
       run: |
@@ -29,7 +28,7 @@ jobs:
         
     - name: Build with PyInstaller
       run: |
-        pyinstaller --noconsole --onefile --name="EssayGrader" --add-data "poppler;poppler" main.py
+        pyinstaller --noconsole --onefile --name="EssayGrader" --add-data "poppler/bin;poppler/bin" main.py
         
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
